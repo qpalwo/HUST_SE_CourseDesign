@@ -1,0 +1,65 @@
+@startuml
+
+
+package "UI" #aabbcc{
+MainWindows <.. MainController
+class MainController{
+void initStationView()
+void initLineList()
+void initGuideList()
+}
+}
+
+package "data" #ddccdd{
+MainController .down.> DataModel
+DataModel .left.> FileReaderUtil
+DataModel .right.> FindPathUtil
+DataModel .down.> PathUtil
+
+class DataModel{
+-SubwayData mData
++Path getPath(String start, String end)
++List<String> getAllStation()
++List<String> getAllLineName()
++List<String> linesNameOfStation(String station)
+}
+
+class FileReaderUtil{
++void readFile(String path, CallBack<SubwayData> callBack)
+}
+
+class FindPathUtil{
++Path shortestPath(String start, String end)
+}
+
+class PathUtil{
++Path stationsToPath(List<String> stations, List<Edge> edges)
+}
+
+package "bean" #dddddd{
+class Edge{
+}
+
+class Path{
+}
+
+class SubwayData{
+}
+}
+
+package "pricecalculate" #dddddd{
+
+DataModel .down.> Calculator
+interface Calculator{
+    float calculate(float)
+}
+
+class DailyTicket implements Calculator
+
+class NormalTicket implements Calculator
+
+class WuHanCard implements Calculator
+}
+
+}
+@enduml
