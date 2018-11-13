@@ -139,6 +139,7 @@ RESULT	dw 10 dup(0)
 OUTPUT	db 50 dup(0), '$'
 AREA	dw 0
 WAY		dw 0
+ISEND	dw 0
 INTMPE	db 5, 5 dup(0)
 LETIN	db 0dh, 0ah, 'Please input a number', 0dh, 0ah, '$'
 INERRS	db 0dh, 0ah, 0dh, 0ah, 'Please input a number below 1000', '$'
@@ -147,6 +148,7 @@ CHOOSE	db 0dh, 0ah, 'Please choose the mode of data sorce.', 0dh, 0ah
 		db '2.calculate', 0dh, 0ah, '$'
 INERRN	db 0dh, 0ah, 0dh, 0ah, 'Please input a number between 0 and 3', 0dh, 0ah, '$'
 OUTTIP	db 0dh, 0ah, 'The water flower number you want are:', 0dh, 0ah, '$'
+ENDORNO	db 0dh, 0ah, 'You want to exit or continue? Exit press n & continue press y', 0dh, 0ah, '$'
 
 DATA	ends
 
@@ -191,6 +193,13 @@ CALCU:	ISTHENUM AREA, RESULT
 
 ENDPROC:PRINT OUTTIP
 		PRINT OUTPUT
+		PRINT ENDORNO
+		INPUT ISEND
+		mov ax, ISEND
+		cmp ax, 49h
+		je AIN
+		cmp ax, 29h
+		je AIN
 		RETURN
 
 CODE	ends
