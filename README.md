@@ -1,2 +1,2 @@
 # HUST_SE_CourseDesign
-No need to explain
+记录一下大学的课内学习成果
